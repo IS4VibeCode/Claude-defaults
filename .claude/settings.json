@@ -1,0 +1,60 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(/.vs/**)"
+    ]
+  }
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "source ~/.claude/hooks/bell.sh"
+          }
+        ]
+      }
+    ],
+    "StopFailure": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "source ~/.claude/hooks/bell.sh"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "source ~/.claude/hooks/bell.sh"
+          }
+        ]
+      }
+    ]
+  },
+  "env": {
+    "BASH_ENV": "$HOME/.claude/hooks/init.sh"
+  },
+  "sandbox": {
+    "enabled": true,
+    "failIfUnavailable": true,
+    "autoAllowBashIfSandboxed": true,
+    "allowUnsandboxedCommands": false,
+    "filesystem": {
+      "denyRead": [
+        ".vs"
+      ]
+    }
+  },
+  "spinnerVerbs": {
+    "mode": "replace",
+    "verbs": [
+      "Processing"
+    ]
+  },
+  "skipDangerousModePermissionPrompt": true
+}
