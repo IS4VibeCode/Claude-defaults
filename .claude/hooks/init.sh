@@ -2,7 +2,7 @@ readonly PROJECT_TMP_NAME=`echo "$PWD" | tr / -`
 
 dotnet() {
   case "$1" in
-    build|test|run|publish)
+    build|test|run|publish|restore)
       # Sandbox-safe options with isolated build directory
       command dotnet "$@" \
         /maxcpucount:1 \
