@@ -2,9 +2,9 @@ readonly PROJECT_TMP_NAME=`echo "$PWD" | tr / -`
 
 dotnet() {
   case "$1" in
-    build|test|run|publish|restore)
+    build|test|run|publish|restore|new)
       # Sandbox-safe options with isolated build directory
-      command dotnet "$@" \
+      NUGET_PACKAGES="${TMPDIR:-/tmp}/nuget-packages" NUGET_HTTP_CACHE_PATH="${TMPDIR:-/tmp}/nuget-http-cache" command dotnet "$@" \
         /maxcpucount:1 \
         /p:EnableSourceControlManagerQueries=false \
         /p:ContinuousIntegrationBuild=false \
