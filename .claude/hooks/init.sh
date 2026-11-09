@@ -2,7 +2,7 @@ readonly PROJECT_TMP_NAME=`echo "$PWD" | tr / -`
 
 dotnet() {
   case "$1" in
-    build|test|run|publish|restore|new)
+    build|test|run|publish|restore)
       # Sandbox-safe options with isolated build directory
       NUGET_HTTP_CACHE_PATH="${TMPDIR:-/tmp}/nuget-http-cache" NUGET_CERT_REVOCATION_MODE=offline command dotnet "$@" \
         /maxcpucount:1 \
@@ -14,6 +14,9 @@ dotnet() {
         /p:UseArtifactsOutput=true \
         /p:RestoreIgnoreFailedSources=true \
         /p:ArtifactsPath="${TMPDIR:-/tmp}/$PROJECT_TMP_NAME"
+      ;;
+    new)
+      NUGET_HTTP_CACHE_PATH="${TMPDIR:-/tmp}/nuget-http-cache" NUGET_CERT_REVOCATION_MODE=offline command dotnet "$@"
       ;;
     *)
       command dotnet "$@"
