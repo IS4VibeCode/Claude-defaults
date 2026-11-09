@@ -4,7 +4,7 @@ dotnet() {
   case "$1" in
     build|test|run|publish|restore|new)
       # Sandbox-safe options with isolated build directory
-      NUGET_PACKAGES="${TMPDIR:-/tmp}/nuget-packages" NUGET_HTTP_CACHE_PATH="${TMPDIR:-/tmp}/nuget-http-cache" command dotnet "$@" \
+      NUGET_HTTP_CACHE_PATH="${TMPDIR:-/tmp}/nuget-http-cache" NUGET_CERT_REVOCATION_MODE=offline command dotnet "$@" \
         /maxcpucount:1 \
         /p:EnableSourceControlManagerQueries=false \
         /p:ContinuousIntegrationBuild=false \
@@ -12,6 +12,7 @@ dotnet() {
         /p:PublishRepositoryUrl=false \
         /p:EmbedUntrackedSources=false \
         /p:UseArtifactsOutput=true \
+        /p:RestoreIgnoreFailedSources=true \
         /p:ArtifactsPath="${TMPDIR:-/tmp}/$PROJECT_TMP_NAME"
       ;;
     *)
